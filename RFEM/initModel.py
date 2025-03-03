@@ -123,6 +123,7 @@ class Model():
     def __init__(self,
                  new_model: bool=True,
                  model_name: str="TestModel.rf6",
+                 template_path: str=None,
                  delete: bool=False,
                  delete_all: bool=False,
                  connect_to_server: bool=True):
@@ -183,7 +184,10 @@ class Model():
                         modelPath =  connectionGlobals.client.service.get_active_model()
                     # If there is no nodel with given name, new RFEM model will be created
                     else:
-                        modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+                        if template_path is not None:
+                            modelPath =  connectionGlobals.client.service.new_model_from_template(original_model_name, template_path)
+                        else:
+                            modelPath =  connectionGlobals.client.service.new_model(original_model_name)
 
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
