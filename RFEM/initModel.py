@@ -25,7 +25,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
     if connectionGlobals.connected:
         return
 
-    print('Connecting to server...')
+    print('Connecting to server ...', end='')
 
     # local machine url format: 'http://127.0.0.1'
     urlAndPort = f'{url}:{port}'
@@ -90,6 +90,7 @@ def connectToServer(url=connectionGlobals.url, port=connectionGlobals.port):
         )
         connectionGlobals.client = Client(urlAndPort+'/wsdl', location = urlAndPort, cache=connectionGlobals.ca, transport=trans)
         connectionGlobals.connected = True
+        print(' done')
 
     except Exception:
         print('Error: Connection to server failed!')
