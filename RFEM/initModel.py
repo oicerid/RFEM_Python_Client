@@ -159,13 +159,17 @@ class Model():
 
         if new_model:
             # Requested new model but the model with given name is already connected
-            if model_name in self.clientModelDct:
+            if model_name in self.clientModelDct and template_path is None:
+                
+                #if template_path is None:
                 cModel = self.clientModelDct[model_name]
                 # Asuming the existing model should be recycled everything have to be deleted,
                 # so the script won't add new objects on top of the old ones.
                 # Mainly used in cycles.
                 cModel.service.delete_all_results()
                 cModel.service.delete_all()
+                #else:
+
 
             else:
                 modelPath = ''
@@ -177,6 +181,12 @@ class Model():
                             id = i
                     modelPath =  connectionGlobals.client.service.get_model(id)
 
+                    # If template is provided, close the old model
+                    if template_path is not None:
+                        connectionGlobals.client.service.close_model(id, False)
+
+                        modelPath =  connectionGlobals.client.service.new_model_from_template(original_model_name, template_path)
+
                 # Requested new model, model with given name DOESN'T exist yet
                 else:
                     # If name is empty, active will be selected
@@ -184,10 +194,10 @@ class Model():
                         modelPath =  connectionGlobals.client.service.get_active_model()
                     # If there is no nodel with given name, new RFEM model will be created
                     else:
-                        if template_path is not None:
-                            modelPath =  connectionGlobals.client.service.new_model_from_template(original_model_name, template_path)
-                        else:
+                        if template_path is None:
                             modelPath =  connectionGlobals.client.service.new_model(original_model_name)
+                        else:
+                            modelPath =  connectionGlobals.client.service.new_model_from_template(original_model_name, template_path)
 
                 modelPort = modelPath[-5:-1]
                 modelUrlPort = connectionGlobals.url+':'+modelPort
