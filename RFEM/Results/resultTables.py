@@ -497,6 +497,18 @@ class ResultTables():
         '''
 
         return ConvertResultsToListOfDct(model.clientModel.service.get_results_for_errors(loading_type.name, loading_no, object_no), include_base)
+    
+    @staticmethod
+    def GetCalculationErrors(
+        include_base: bool = False,
+        model = Model):
+
+        '''
+         Args:
+            model (class, optional): Model instance
+        '''
+
+        return ConvertResultsToListOfDct(model.clientModel.service.get_calculation_errors(), include_base)
 
     @staticmethod
     def LineHingesDeformations(
