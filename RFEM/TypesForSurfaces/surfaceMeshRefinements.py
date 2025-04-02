@@ -48,3 +48,15 @@ class SurfaceMeshRefinement():
 
         # Add Surface Mesh Refinement to client model
         model.clientModel.service.set_surface_mesh_refinement(clientObject)
+
+    @staticmethod
+    def GetSurfaceMeshRefinement(object_index: int = 1, model = Model):
+
+        '''
+        Args:
+            obejct_index (int): Surface Index
+            model (RFEM Class, optional): Model to be edited
+        '''
+
+        # Get Surface from client  model
+        return model.clientModel.service.get_surface_mesh_refinement(object_index)
