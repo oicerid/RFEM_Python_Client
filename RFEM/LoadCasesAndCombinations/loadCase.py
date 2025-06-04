@@ -14,7 +14,7 @@ class LoadCase():
                  action_category=ActionCategoryType.ACTION_CATEGORY_NONE_NONE,
                  imperfection_case: int = None,
                  structure_modification: int = None,
-                 comment: str = 'Comment',
+                 comment: str = '',
                  params: dict = None,
                  model = Model):
         '''
@@ -115,7 +115,7 @@ class LoadCase():
             self_weight: list =[True, 0.0, 0.0, 10.0],
             imperfection_case: int = None,
             structure_modification: int = None,
-            comment: str = 'Comment',
+            comment: str = '',
             params: dict = None,
             model = Model):
         '''
